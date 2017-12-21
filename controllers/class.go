@@ -2,6 +2,7 @@ package controllers
 
 import (
   "ironSchool/models"
+  "encoding/json"
 
   "github.com/astaxie/beego"
 )
@@ -27,10 +28,8 @@ func (this *ClassController) GetByName() {
   className := this.Ctx.Input.Param(":className")
   if className != "" {
     class, err := models.GetClassByName(className)
-    errorResp := make(map[string]string)
     if err != nil {
-      errorResp["status"] = err.Error()
-      this.Data["json"] = errorResp
+      this.Data["json"] = map[string]string{"status": err.Error()}
     } else {
       this.Data["json"] = class
     }
@@ -41,5 +40,13 @@ func (this *ClassController) GetByName() {
 func (this *ClassController) GetAllClass() {
   classes := models.GetAllClasses()
   this.Data["json"] = classes
+  this.ServeJSON()
+}
+
+func (this *ClassController) PostNewClass() {
+  var newClass models.Class
+  json.Unmarshal(this.Ctx.Input.RequestBody, &newClass)
+  newClassId := models.AddNewClass(newClass)
+  this.Data["json"] = map[string]string{"classId": newClassId}
   this.ServeJSON()
 }

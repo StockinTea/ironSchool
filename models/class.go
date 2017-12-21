@@ -3,6 +3,7 @@ package models
 import (
   "errors"
   "strings"
+  "strconv"
 )
 
 var (
@@ -17,18 +18,19 @@ type Class struct {
 
 func init() {
   ClassList = make(map[string]*Class)
+  ClassSerialNo = 20170003
 
-  ClassList["c201700000"] = &Class{"c201700000", "apple"}
-  ClassList["c201700001"] = &Class{"c201700000", "Cafe"}
-  ClassList["c201700002"] = &Class{"c201700000", "dog"}
-  ClassSerialNo = 201700018
+  ClassList["c20170000"] = &Class{"c20170000", "apple"}
+  ClassList["c20170001"] = &Class{"c20170000", "Cafe"}
+  ClassList["c20170002"] = &Class{"c20170000", "dog"}
+
 }
 
 func GetClassById(classId string) (class *Class, err error) {
   if v, ok := ClassList[classId]; ok {
     return v, nil
   }
-  return nil, errors.New("classId Not Exist")
+  return nil, errors.New("NotExist")
 }
 
 
@@ -44,4 +46,11 @@ func GetClassByName(className string) (class *Class, err error) {
 
 func GetAllClasses() map[string]*Class {
   return ClassList
+}
+
+func AddNewClass(newClass Class) string {
+  ClassSerialNo = ClassSerialNo + 1
+  newClass.ClassId = "c" + strconv.FormatInt(ClassSerialNo, 10)
+  ClassList[newClass.ClassId] = &newClass
+  return newClass.ClassId
 }
