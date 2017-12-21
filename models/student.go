@@ -2,7 +2,6 @@ package models
 
 import (
   "errors"
-  "strconv"
 )
 
 var (
@@ -18,7 +17,7 @@ type Student struct {
 
 func init() {
   StudentList = make(map[string]*Student)
-  StudentList["s201700001"] = &Student{"s201700001", "Sharon", "apple"}
+  // StudentList["s201700001"] = &Student{"s201700001", "Sharon", "apple"}
   StudentList["s201700002"] = &Student{"s201700002", "Summer", "apple"}
   StudentList["s201700003"] = &Student{"s201700003", "Andy", "apple"}
   StudentList["s201700004"] = &Student{"s201700004", "Jeff", "apple"}
@@ -37,13 +36,6 @@ func init() {
   StudentList["s201700016"] = &Student{"s201700016", "Justin", "Cafe"}
   StudentList["s201700017"] = &Student{"s201700017", "Tea", "Cafe"}
   SerialNo = 201700018
-}
-
-func AddStudent(student Student) (studentId string) {
-  student.StudentId = "s" + strconv.FormatInt(SerialNo, 8)
-  StudentList[student.StudentId] = &student
-  SerialNo = SerialNo + 1
-  return student.StudentId
 }
 
 func GetStudent(studentId string) (student *Student, err error) {

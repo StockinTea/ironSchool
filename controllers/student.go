@@ -1,23 +1,13 @@
 package controllers
 
 import (
-  "Board/models"
-  "encoding/json"
+  "ironSchool/models"
 
   "github.com/astaxie/beego"
 )
 
 type StudentController struct {
   beego.Controller
-}
-
-
-func (s *StudentController) Post() {
-  var st models.Student
-  json.Unmarshal(s.Ctx.Input.RequestBody, &st)
-  StudentId := models.AddStudent(st)
-  s.Data["json"] = map[string]string{"StudentId": StudentId}
-  s.ServeJSON()
 }
 
 func (s *StudentController) Get() {
