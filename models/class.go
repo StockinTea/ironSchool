@@ -18,11 +18,11 @@ type Class struct {
 
 func init() {
   ClassList = make(map[string]*Class)
-  ClassSerialNo = 20170003
+  ClassSerialNo = 20170000
 
-  ClassList["c20170000"] = &Class{"c20170000", "apple"}
-  ClassList["c20170001"] = &Class{"c20170000", "Cafe"}
-  ClassList["c20170002"] = &Class{"c20170000", "dog"}
+  AddNewClass(Class{ "", "apple"})
+  AddNewClass(Class{ "", "Cafe"})
+  AddNewClass(Class{ "", "dog"})
 
 }
 

@@ -2,7 +2,6 @@ package controllers
 
 import (
   "ironSchool/models"
-  "encoding/json"
 
   "github.com/astaxie/beego"
 )
@@ -45,7 +44,7 @@ func (this *ClassController) GetAllClass() {
 
 func (this *ClassController) PostNewClass() {
   var newClass models.Class
-  json.Unmarshal(this.Ctx.Input.RequestBody, &newClass)
+  this.ParseForm(&newClass)
   newClassId := models.AddNewClass(newClass)
   this.Data["json"] = map[string]string{"classId": newClassId}
   this.ServeJSON()

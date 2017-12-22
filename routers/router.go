@@ -9,7 +9,8 @@ import (
 func init() {
   namespace := beego.NewNamespace("/ironSchool",
     beego.NSNamespace("/student",
-      beego.NSRouter("/", &controllers.StudentController{},"*:GetAll"),
+      beego.NSRouter("/", &controllers.StudentController{},"get:GetAll"),
+      beego.NSRouter("/", &controllers.StudentController{},"post:PostNewStudent"),
       beego.NSRouter("/:studentId", &controllers.StudentController{},"*:Get"),
     ),
     beego.NSNamespace("/class",

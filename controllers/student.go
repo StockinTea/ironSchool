@@ -10,21 +10,29 @@ type StudentController struct {
   beego.Controller
 }
 
-func (s *StudentController) Get() {
-  StudentId := s.Ctx.Input.Param(":studentId")
+func (this *StudentController) Get() {
+  StudentId := this.Ctx.Input.Param(":studentId")
   if StudentId != "" {
     st, err := models.GetStudent(StudentId)
     if err != nil {
-      s.Data["json"] = err.Error()
+      this.Data["json"] = err.Error()
     } else {
-      s.Data["json"] = st
+      this.Data["json"] = st
     }
   }
-  s.ServeJSON()
+  this.ServeJSON()
 }
 
-func (s *StudentController) GetAll() {
+func (this *StudentController) GetAll() {
   sts := models.GetAllStudents()
-  s.Data["json"] = sts
-  s.ServeJSON()
+  this.Data["json"] = sts
+  this.ServeJSON()
+}
+
+func (this *StudentController) PostNewStudent() {
+  var newStudent models.Student
+  this.ParseForm(&newStudent)
+  newStudentId := models.AddNewStudent(newStudent)
+  this.Data["json"] = map[string]string{"StudentId": newStudentId}
+  this.ServeJSON()
 }
