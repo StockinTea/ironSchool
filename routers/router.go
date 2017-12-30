@@ -7,6 +7,7 @@ import (
 )
 
 func init() {
+  beego.ErrorController(&controllers.ErrorController{})
   namespace := beego.NewNamespace("/ironSchool",
     beego.NSNamespace("/student",
       beego.NSRouter("/", &controllers.StudentController{}, "get:GetAll"),
@@ -24,6 +25,7 @@ func init() {
     beego.NSNamespace("/teacher",
       beego.NSRouter("/", &controllers.TeacherController{}, "get:GetAllTeachers"),
       beego.NSRouter("/", &controllers.TeacherController{}, "post:PostNewTeacher"),
+      beego.NSRouter("/:teacherId", &controllers.TeacherController{}, "options:OptionTeacher"),
       beego.NSRouter("/:teacherId", &controllers.TeacherController{}, "delete:DelTeacherByTID"),
     ),
     beego.NSNamespace("/test",

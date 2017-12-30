@@ -37,6 +37,8 @@ func (this *ClassController) GetByName() {
 }
 
 func (this *ClassController) GetAllClass() {
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   classes := models.GetAllClasses()
   this.Data["json"] = classes
   this.ServeJSON()

@@ -11,6 +11,8 @@ type TeacherController struct {
 }
 
 func (this *TeacherController) GetAllTeachers() {
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   teacheres := models.GetAllTeachers()
   this.Data["json"] = teacheres
   this.ServeJSON()
@@ -26,8 +28,15 @@ func (this *TeacherController) PostNewTeacher() {
 }
 
 func (this *TeacherController) DelTeacherByTID() {
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   tid := this.GetString(":teacherId")
   models.DeleteTeacher(tid)
   this.Data["json"] = map[string]string{"status": "success", "data": tid}
   this.ServeJSON()
+}
+
+func (this *TeacherController) OptionTeacher() {
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE")
 }

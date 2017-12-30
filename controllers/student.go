@@ -20,10 +20,13 @@ func (this *StudentController) Get() {
       this.Data["json"] = st
     }
   }
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+  this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   this.ServeJSON()
 }
 
 func (this *StudentController) GetAll() {
+  this.Ctx.ResponseWriter.Header().Set("ServerMan", "StockinTea")
   sts := models.GetAllStudents()
   this.Data["json"] = sts
   this.ServeJSON()
